@@ -6,12 +6,14 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import org.springframework.stereotype.Repository;
 import pe.edu.utp.casoventas3.data.entity.CabFactura;
 import pe.edu.utp.casoventas3.data.entity.CabGuiaRem;
 import pe.edu.utp.casoventas3.data.entity.Cliente;
 import pe.edu.utp.casoventas3.data.entity.Empresa;
 import pe.edu.utp.casoventas3.service.TypeService;
 
+@Repository
 public class CabFacturaDao implements Dao<CabFactura>{
 
     @Override

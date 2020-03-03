@@ -5,10 +5,12 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import org.springframework.stereotype.Repository;
 import pe.edu.utp.casoventas3.data.entity.CabFactura;
 import pe.edu.utp.casoventas3.data.entity.DetFactura;
 import pe.edu.utp.casoventas3.data.entity.Producto;
 
+@Repository
 public class DetFacturaDao implements Dao<DetFactura>{
 
     @Override
