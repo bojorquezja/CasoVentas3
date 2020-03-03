@@ -1,10 +1,12 @@
 package pe.edu.utp.casoventas3.ui.view;
 
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import pe.edu.utp.casoventas3.ui.presenter.MVPPresenter;
 import pe.edu.utp.casoventas3.service.FileService;
 
+@Component
 public class PrincipalView extends javax.swing.JFrame implements MVPView{
     private MVPPresenter presenter;
     

@@ -2,6 +2,9 @@ package pe.edu.utp.casoventas3.ui.presenter;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
 import pe.edu.utp.casoventas3.data.dao.CabFacturaDao;
 import pe.edu.utp.casoventas3.data.dao.CabGuiaRemDao;
 import pe.edu.utp.casoventas3.data.dao.ClienteDao;
@@ -25,33 +28,29 @@ import pe.edu.utp.casoventas3.ui.view.ListaGuiasRemisionView;
 import pe.edu.utp.casoventas3.ui.view.ListaProductoView;
 import pe.edu.utp.casoventas3.ui.view.MVPView;
 
+@Controller
 public class PrincipalPresenter implements MVPPresenter{
     private MVPView view;
     private MVPModel model;
     private Object[] result;
     private String tipoView;
 
-    public PrincipalPresenter(MVPView view, MVPModel model, Object[] params) {
-        //tipoview
+    @Autowired
+    public PrincipalPresenter(@Qualifier("principalView") MVPView view, @Qualifier("principalModel") MVPModel model) {
+        //tipoview  
         this.model = model;
         this.view = view;
+        this.view.setPresenter(this);
+    }
+    
+    @Override
+    public void postConstructed(Object[] params) {
         this.result = new Object[]{(Boolean) true};
         this.tipoView = (((String) params[0]).length()>=0) ? (String) params[0] : "READ";
-        this.view.setPresenter(this);
         this.view.updateView("Iniciar", new Object[]{"Sistema de Ventas"});
         this.view.showView();
     }
     
-    @Override
-    public void setView(MVPView view) {
-        this.view = view;
-    }
-
-    @Override
-    public void setModel(MVPModel model) {
-        this.model = model;
-    }
-
     @Override
     public void notifyPresenter(String subject, Object[] params) {
         if (subject.equalsIgnoreCase("Cancelar")) {
@@ -60,6 +59,7 @@ public class PrincipalPresenter implements MVPPresenter{
         
         if (subject.equalsIgnoreCase("Menu")) {
             //params: Opcion
+            /*
             if (((String) params[0]).equalsIgnoreCase("MantGuiaRemision")){
                 SwingUtilities.invokeLater(() -> {
                     MVPPresenter p = new ListaGuiasRemisionPresenter(
@@ -119,6 +119,7 @@ public class PrincipalPresenter implements MVPPresenter{
                     view.updateView("MsgBox", new Object[]{"ERROR al descargar Archivos!"});
                 }
             }
+*/
         }
         
     }
