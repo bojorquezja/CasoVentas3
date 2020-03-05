@@ -1,24 +1,33 @@
 package pe.edu.utp.casoventas3.ui.presenter;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
 import pe.edu.utp.casoventas3.data.entity.CabGuiaRem;
 import pe.edu.utp.casoventas3.data.entity.DetGuiaRem;
 import pe.edu.utp.casoventas3.ui.model.MVPModel;
 import pe.edu.utp.casoventas3.service.TypeService;
 import pe.edu.utp.casoventas3.ui.view.MVPView;
 
+@Controller
 public class ConfiguracionPresenter implements MVPPresenter{
     private MVPView view;
     private MVPModel model;
     private Object[] result;
     private String tipoView;
-
-    public ConfiguracionPresenter(MVPView view, MVPModel model, Object[] params) {
+    
+    @Autowired
+    public ConfiguracionPresenter(@Qualifier("configuracionView") MVPView view, @Qualifier("configuracionModel") MVPModel model) {
         //tipoview, 
         this.model = model;
         this.view = view;
+        this.view.setPresenter(this);
+    }
+    
+    @Override
+    public void postConstructed(Object[] params) {
         this.result = new Object[]{(Boolean) true};
         this.tipoView = (((String) params[0]).length()>=0) ? (String) params[0] : "READ";
-        this.view.setPresenter(this);
         try{
             Object[] ent=this.model.loadModel("Todo", null);
             this.view.updateView("Iniciar", new Object[]{"Configuracion", ent});
@@ -26,16 +35,6 @@ public class ConfiguracionPresenter implements MVPPresenter{
             this.view.updateView("MsgBox", new Object[]{TypeService.breakLine(e.toString(), 100)});
         }
         this.view.showView();
-    }
-    
-    @Override
-    public void setView(MVPView view) {
-        this.view = view;
-    }
-
-    @Override
-    public void setModel(MVPModel model) {
-        this.model = model;
     }
 
     @Override
@@ -81,5 +80,7 @@ public class ConfiguracionPresenter implements MVPPresenter{
     public Object[] getResult() {
         return result;
     }
+
+    
     
 }

@@ -10,6 +10,9 @@ import pe.edu.utp.casoventas3.service.FileService;
 public class PrincipalView extends javax.swing.JFrame implements MVPView{
     private MVPPresenter presenter;
     
+    @Autowired
+    private FileService fs;
+    
     @Override
     public void showView() {
         setVisible(true);
@@ -46,7 +49,7 @@ public class PrincipalView extends javax.swing.JFrame implements MVPView{
     
     public PrincipalView() {
         initComponents();
-        this.setIconImage(FileService.getImageAsIcon("ventas.png"));
+        this.setIconImage(fs.getImageAsIcon("ventas.png"));
         this.setLocationRelativeTo(null);
     }
 

@@ -7,9 +7,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import javax.swing.ImageIcon;
+import org.springframework.stereotype.Service;
 
+@Service
 public class FileService {
-    public static boolean exportResourceFile(String archOrigen, String archDestino){
+    public boolean exportResourceFile(String archOrigen, String archDestino){
         boolean ok = true;
         try {
             InputStream src = FileService.class.getClassLoader().getResourceAsStream(archOrigen);
@@ -19,7 +21,7 @@ public class FileService {
         }
         return ok;
     }
-    public static Image getImageAsIcon(String imagOrigen){
+    public Image getImageAsIcon(String imagOrigen){
         Image img = new ImageIcon(FileService.class.getClassLoader().getResource(imagOrigen)).getImage();
         return img;
     }

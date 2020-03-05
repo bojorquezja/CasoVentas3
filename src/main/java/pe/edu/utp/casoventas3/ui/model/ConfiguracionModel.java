@@ -1,7 +1,9 @@
 package pe.edu.utp.casoventas3.ui.model;
 
+import org.springframework.stereotype.Component;
 import pe.edu.utp.casoventas3.service.ConfigurationService;
 
+@Component
 public class ConfiguracionModel implements MVPModel{
 
     @Override

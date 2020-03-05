@@ -1,13 +1,18 @@
 package pe.edu.utp.casoventas3.ui.view;
 
 import javax.swing.JOptionPane;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import pe.edu.utp.casoventas3.ui.presenter.MVPPresenter;
 import pe.edu.utp.casoventas3.service.DocumentListenerService;
 import pe.edu.utp.casoventas3.service.FileService;
 
+@Component
 public class ConfiguracionView extends javax.swing.JDialog implements MVPView {
     private MVPPresenter presenter;
-
+    @Autowired
+    private FileService fs;
+    
     @Override
     public void showView() {
         setVisible(true);
@@ -79,8 +84,8 @@ public class ConfiguracionView extends javax.swing.JDialog implements MVPView {
     }
     
     
-    public ConfiguracionView(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public ConfiguracionView(java.awt.Frame parent) {
+        super(parent, true);
         initComponents();
         this.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -88,7 +93,7 @@ public class ConfiguracionView extends javax.swing.JDialog implements MVPView {
                 presenter.notifyPresenter("Cancelar", null);
             }
         });
-        this.setIconImage(FileService.getImageAsIcon("ventas.png"));
+        this.setIconImage(fs.getImageAsIcon("ventas.png"));
         this.setLocationRelativeTo(null);
         //value change event
         tfl0.getDocument().addDocumentListener((DocumentListenerService) e -> enviaUpdateConexion());

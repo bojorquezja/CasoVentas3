@@ -34,6 +34,9 @@ public class PrincipalPresenter implements MVPPresenter{
     private MVPModel model;
     private Object[] result;
     private String tipoView;
+    
+    @Autowired
+    private FileService fs;
 
     @Autowired
     public PrincipalPresenter(@Qualifier("principalView") MVPView view, @Qualifier("principalModel") MVPModel model) {
@@ -100,6 +103,7 @@ public class PrincipalPresenter implements MVPPresenter{
                             new Object[]{"MAINTENANCE"});
                 });
             }
+                    */
             if (((String) params[0]).equalsIgnoreCase("Configuracion")){
                 SwingUtilities.invokeLater(() -> {
                     MVPPresenter p = new ConfiguracionPresenter(
@@ -108,18 +112,17 @@ public class PrincipalPresenter implements MVPPresenter{
                             new Object[]{""});
                 });
             }
+                    
             if (((String) params[0]).equalsIgnoreCase("Descarga SQL")){
                 boolean result = true;
-                result = result && FileService.exportResourceFile("BDVentas2_1.sql", "BDVentasV2.1.sql");
-                result = result && FileService.exportResourceFile("BDVentas2_2.sql", "BDVentasV2.2.sql");
-                result = result && FileService.exportResourceFile("BDVentas2_3.sql", "BDVentasV2.3.sql");
+                result = result && fs.exportResourceFile("BDVentas3_1.sql", "BDVentasV3.1.sql");
                 if(result){
                     view.updateView("MsgBox", new Object[]{"Archivos descargados en la carpeta del aplicativo"});
                 }else{
                     view.updateView("MsgBox", new Object[]{"ERROR al descargar Archivos!"});
                 }
             }
-*/
+
         }
         
     }
